@@ -1,8 +1,8 @@
-# Making env : python -m venv .venv
-#Activating : .venv\Scripts\activate.bat
-from loadingdata import *
-from reporter import Reporter
-def main():
+import pandas as pd
+
+
+
+def main2():
     methodRes = getMethodOfInput()
     if(not methodRes["success"]):
         print("Error : ",methodRes["error"])
@@ -52,6 +52,3 @@ def main():
     report.add("Printed the meta data")
 
     changeDataTypeColumns = input("Which column's datatype should change (seperate the columns with comma) : ").lower().split(',')
-
-if __name__ == "__main__":
-    main()

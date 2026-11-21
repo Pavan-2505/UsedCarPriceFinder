@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme{
+  --color-background: #ffffff;
+  --color-background2: #f5f5f5;
+  --color-border: #e5e5e5;
+  --color-placeholder: #a3a3a3;
+  --color-para: #737373;
+  --color-mutedheadings: #404040;
+  --color-primary-headings: #171717;
+  --color-buttons: #0A0A0A;
+
+  --color-background-dark: #0A0A0A;
+  --color-background2-dark: #171717;
+  --color-border-dark: #262626;
+  --color-placeholder-dark: #737373;
+  --color-para-dark: #a3a3a3;
+  --color-mutedheadings-dark: #d4d4d4;
+  --color-primary-headings-dark: #f5f5f5;
+  --color-buttons-dark: #fafafa;
+}
+
+@theme {
+  --font-Inter: var(--font-Inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+h1 {
+  font-size: 66.07px;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 40.96px;
+}
+
+h3 {
+  font-size: 32.25px;
+}
+
+h4 {
+  font-size: 25.4px;
+}
+
+h5 {
+  font-size: 20px;
+}
+
+h6 {
+  font-size: 15.74px;
+}
+
+p {
+  font-size: 15.74px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Small */
+@media (width < 48rem) {
+  h1 {
+    font-size: 32.25px;
+    font-weight: 500;
+  }
+
+  h2 {
+    font-size: 25.4px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  h4 {
+    font-size: 15.74px;
+  }
+
+  h5 {
+    font-size: 12.4px;
+  }
+
+  h6 {
+    font-size: 9.76px;
+
+  }
+
+  p {
+    font-size: 9.76px;
+  }
+}
+
+.button-effects{
+  cursor: pointer;
+  transition: transform 100ms ease-out 0ms;
+}
+
+.button-effects:active{
+  transform: scale(0.95);
+}
