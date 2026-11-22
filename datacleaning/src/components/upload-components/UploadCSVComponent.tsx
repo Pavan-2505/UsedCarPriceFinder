@@ -3,38 +3,46 @@
 import { BACKEND_API_ROUTE } from "@/lib/constants";
 import { ChangeEvent, useState } from "react";
 import { FiUpload } from "react-icons/fi";
+import { useRouter } from "next/navigation";
+import ErrorMessageDiv from "../widespread-components/ErrorMessageDiv";
 
-const UploadCSVComponent = () => {
+const UploadCSVComponent = ({ isLoading, setIsLoading }: { isLoading: boolean, setIsLoading: (state: boolean) => void }) => {
     const [csvFile, setCsvFile] = useState<File | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
+
+    const router = useRouter();
     const onFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
         setIsLoading(true);
         const file = e.target.files?.[0];
         if (!file) return;
         if (!file.name.toLowerCase().endsWith(".csv")) {
             e.target.value = "";
+            setError("Only .csv files allowed");
             return;
         }
         const formData = new FormData();
         formData.append("file", file);
         try {
-            console.log("API",BACKEND_API_ROUTE);
-            const res = await fetch(`${BACKEND_API_ROUTE}/uploads/csv`, {
+            const res = await fetch(`/api/uploads/csv`, {
                 method: "POST",
                 body: formData
             });
 
+            const body = await res.json().catch(() => ({}));
             if (!res.ok) {
-                const body = await res.json().catch(() => ({}));
-                console.log("Error : ", body.details ?? "Upload Error Failed");
+                setError(body.details ?? "Upload Failed");
                 return;
             }
-            console.log("Success");
+            // console.log(body);
+            localStorage.setItem("file-path", JSON.stringify(body));
+            router.push(`project/${body.file_id}`);
+            setError('');
 
         } catch (e) {
-
+            setError("Upload Failed");
         }
-        setIsLoading(false);
+        setTimeout(() => { setIsLoading(false); }, 1000)
+
     }
     return (
         <>
@@ -43,10 +51,11 @@ const UploadCSVComponent = () => {
                 <div className='bg-background2 flex flex-col items-center justify-center h-24 rounded-lg'>
                     <FiUpload className='text-[25.4px]' />
                     <div className='mt-2'>
-                        <p className='text-mutedheadings '>Max 1GB</p>
+                        <p className='text-mutedheadings '>.csv files</p>
                     </div>
                 </div>
             </label>
+            {error && <ErrorMessageDiv message={error} textSize={16} />}
             <input
                 type='file'
                 id="uploadImage"
@@ -55,6 +64,7 @@ const UploadCSVComponent = () => {
                 onChange={onFileUpload}
                 accept=".csv,text/csv"
             />
+
         </>
     )
 }

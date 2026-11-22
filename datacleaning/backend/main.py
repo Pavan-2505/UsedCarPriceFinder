@@ -1,10 +1,9 @@
 # Making env : python -m venv .venv
 #Activating : .venv\Scripts\activate.bat
 #RUn : fastapi dev main.py
-from loadingdata import *
 from reporter import Reporter
 from fastapi import FastAPI
-from routes import loaddataset
+from routes import uploadhandler,websockethandler
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
@@ -16,5 +15,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(loaddataset.router)
+app.include_router(uploadhandler.router)
+app.include_router(websockethandler.router)
 
