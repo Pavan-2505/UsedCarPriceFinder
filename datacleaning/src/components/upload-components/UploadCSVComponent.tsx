@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import ErrorMessageDiv from "../widespread-components/ErrorMessageDiv";
 
 const UploadCSVComponent = ({ isLoading, setIsLoading }: { isLoading: boolean, setIsLoading: (state: boolean) => void }) => {
-    const [csvFile, setCsvFile] = useState<File | null>(null);
     const [error, setError] = useState<string>('');
 
     const router = useRouter();

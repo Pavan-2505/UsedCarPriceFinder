@@ -5,7 +5,9 @@ from reporter import Reporter
 from fastapi import FastAPI
 from routes import uploadhandler,websockethandler
 from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
 
 app.add_middleware(
     CORSMiddleware,

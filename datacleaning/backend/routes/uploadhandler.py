@@ -28,7 +28,7 @@ async def upload_csv(file : UploadFile = File(...)): # and this
 
     (UPLOAD_DIR/f"{file_id}.csv").write_bytes(contents)
 
-    return {"file_id" : file_id, "original_name":file.filename}
+    return {"file_id" : file_id,"method" : "csv", "original_name":file.filename}
 
 class PathRes(BaseModel):
     path : str
@@ -47,5 +47,5 @@ async def load_kaggle(pathData : PathRes):
         raise HTTPException(400, fileRes["error"])
     
     file_id = uuid.uuid4().hex
-    return {"file_id" : file_id, "original_name":file}
+    return {"file_id" : file_id,"method" : "kaggle", "original_name":pathData.path}
     
